@@ -3,12 +3,13 @@ from setuptools import setup
 setup(
     name="ytdx",
     version="0.1.0",
-    description="Загрузчик видео с YouTube через командную строку",
+    description="Загрузчик видео с YouTube",
     author="Flaymie",
-    author_email="flaymie@example.com",
+    author_email="funquenop@gmail.com",
+    url="https://github.com/Flaymie/ytdx",
     py_modules=["ytdx"],
     install_requires=[
-        "yt-dlp>=2023.3.4",
+        "yt-dlp",
     ],
     entry_points={
         "console_scripts": [
