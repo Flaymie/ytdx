@@ -1,6 +1,4 @@
 #!/usr/bin/env python3
-# ytdx - загрузчик YouTube видео и аудио
-# автор Flaymie, 2025
 
 import argparse
 import os
@@ -13,25 +11,27 @@ def main():
     parser.add_argument("url", help="Ссылка на видео")
     parser.add_argument("-a", "--audio", action="store_true", help="Скачать только аудио (mp3)")
     parser.add_argument("-f", "--format", help="Формат (mp4, mp3, webm и т.д.)")
-    parser.add_argument("-o", "--output", help="Папка для сохранения", default="downloads")
+    parser.add_argument("-o", "--output", help="Папка для сохранения", default=".")
     parser.add_argument("-n", "--name", help="Имя выходного файла (без расширения)")
     parser.add_argument("-q", "--quality", help="Качество видео (1080, 720, 480, 360)")
     
     args = parser.parse_args()
     
-    # Создаем папку для загрузок если её нет
-    output_dir = Path(args.output)
+    if args.output.startswith('~'):
+        output_dir = Path(os.path.expanduser(args.output))
+    elif args.output.startswith('/'):
+        output_dir = Path(args.output)
+    else:
+        output_dir = Path(os.getcwd()) / args.output
+    
     output_dir.mkdir(exist_ok=True, parents=True)
     
-    # Базовые опции для yt-dlp
     ydl_opts = {
-        'paths': {'home': str(output_dir)},
         'quiet': False,
         'no_warnings': False,
         'no_progress': False,
     }
     
-    # Опции для аудио
     if args.audio:
         ydl_opts.update({
             'format': 'bestaudio/best',
@@ -44,7 +44,6 @@ def main():
         if not args.format:
             args.format = 'mp3'
     
-    # Опции для формата
     if args.format and not args.audio:
         if args.format.lower() == 'mp4':
             format_str = 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'
@@ -55,7 +54,6 @@ def main():
         
         ydl_opts['format'] = format_str
     
-    # Опции для качества
     if args.quality and not args.audio:
         quality = args.quality.replace('p', '')
         if quality in ('1080', '720', '480', '360'):
@@ -64,15 +62,17 @@ def main():
             else:
                 ydl_opts['format'] = f'bestvideo[height<={quality}]+bestaudio/best[height<={quality}]/best'
     
-    # Настройка имени файла
+    file_path = output_dir
     if args.name:
         if args.audio:
-            ydl_opts['outtmpl'] = {'default': f'{args.name}.%(ext)s'}
+            filename = f'{args.name}.%(ext)s'
         else:
             ext = args.format if args.format else 'mp4'
-            ydl_opts['outtmpl'] = {'default': f'{args.name}.{ext}'}
+            filename = f'{args.name}.{ext}'
     else:
-        ydl_opts['outtmpl'] = {'default': '%(title)s.%(ext)s'}
+        filename = '%(title)s.%(ext)s'
+    
+    ydl_opts['outtmpl'] = {'default': str(file_path / filename)}
     
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:

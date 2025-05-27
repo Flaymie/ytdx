@@ -38,26 +38,33 @@ pip install .
 ### Простое скачивание видео
 
 ```bash
-ytdx "https://youtube.com/watch?v=abc123"
+ytdx https://youtube.com/watch?v=abc123
 ```
 
 ### Скачивание только аудио в формате mp3
 
 ```bash
-ytdx "https://youtube.com/watch?v=abc123" --audio
+ytdx https://youtube.com/watch?v=abc123 --audio
 ```
 
 ### Скачивание видео в определенном качестве и формате
 
 ```bash
-ytdx "https://youtube.com/watch?v=abc123" -f mp4 -q 720
+ytdx https://youtube.com/watch?v=abc123 -f mp4 -q 720
 ```
 
 ### Скачивание с указанием имени файла и папки сохранения
 
 ```bash
-ytdx "https://youtube.com/watch?v=abc123" -o "Видео" -n "мое_видео"
+ytdx https://youtube.com/watch?v=abc123 -o Видео -n мое_видео
 ```
+
+### Работа с путями
+
+По умолчанию файлы сохраняются в текущую директорию. При указании пути можно использовать:
+- Относительные пути: `-o videos` (относительно текущей директории)
+- Абсолютные пути: `-o /Users/username/Downloads`
+- Пути с тильдой: `-o ~/Downloads` (относительно домашней директории)
 
 ### Все доступные опции
 
@@ -75,7 +82,7 @@ options:
   -f FORMAT, --format FORMAT
                         Формат (mp4, mp3, webm и т.д.)
   -o OUTPUT, --output OUTPUT
-                        Папка для сохранения
+                        Папка для сохранения (по умолчанию: текущая директория)
   -n NAME, --name NAME  Имя выходного файла (без расширения)
   -q QUALITY, --quality QUALITY
                         Качество видео (1080, 720, 480, 360)
