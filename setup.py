@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="ytdx",
-    version="0.1.0",
+    version="1.0.0",
     description="YouTube video downloader via command line",
     author="Flaymie",
     author_email="funquenop@gmail.com",
