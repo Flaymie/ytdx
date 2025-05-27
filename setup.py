@@ -2,8 +2,8 @@ from setuptools import setup
 
 setup(
     name="ytdx",
-    version="0.1.1",
-    description="Загрузчик видео с YouTube",
+    version="0.1.0",
+    description="YouTube video downloader via command line",
     author="Flaymie",
     author_email="funquenop@gmail.com",
     url="https://github.com/Flaymie/ytdx",

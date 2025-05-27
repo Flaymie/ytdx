@@ -1,3 +1,5 @@
+# Russian
+
 # ytdx - Загрузчик видео с YouTube
 
 Командная утилита для скачивания видео и аудио с YouTube по ссылке с дополнительными опциями.
@@ -95,5 +97,109 @@ options:
 - FFmpeg (для конвертации аудио)
 
 ## Лицензия
+
+MIT
+
+---
+
+# English
+
+# ytdx - YouTube Video Downloader
+
+Command-line utility for downloading videos and audio from YouTube with additional options.
+
+## Features
+
+- Download videos in various qualities (1080p, 720p, 480p, 360p)
+- Download audio only
+- Choose format (mp4, mp3, webm and others)
+- Specify output filename
+- Specify save directory
+- Non-interactive mode
+
+## Installation
+
+### Via Homebrew
+
+```bash
+brew install flaymie/tap/ytdx
+```
+
+### Via pip
+
+```bash
+pip install git+https://github.com/flaymie/ytdx.git
+```
+
+### From source
+
+```bash
+git clone https://github.com/flaymie/ytdx.git
+cd ytdx
+pip install .
+```
+
+## Usage
+
+### Simple video download
+
+```bash
+ytdx https://youtube.com/watch?v=abc123
+```
+
+### Download audio only in mp3 format
+
+```bash
+ytdx https://youtube.com/watch?v=abc123 --audio
+```
+
+### Download video in specific quality and format
+
+```bash
+ytdx https://youtube.com/watch?v=abc123 -f mp4 -q 720
+```
+
+### Download with custom filename and directory
+
+```bash
+ytdx https://youtube.com/watch?v=abc123 -o Videos -n my_video
+```
+
+### Working with paths
+
+By default, files are saved to the current directory. When specifying a path, you can use:
+- Relative paths: `-o videos` (relative to current directory)
+- Absolute paths: `-o /Users/username/Downloads`
+- Tilde paths: `-o ~/Downloads` (relative to home directory)
+
+### All available options
+
+```
+usage: ytdx [-h] [-a] [-f FORMAT] [-o OUTPUT] [-n NAME] [-q QUALITY] url
+
+Download videos from YouTube by URL
+
+positional arguments:
+  url                   Video URL
+
+options:
+  -h, --help            show help and exit
+  -a, --audio           Download audio only (mp3)
+  -f FORMAT, --format FORMAT
+                        Format (mp4, mp3, webm, etc)
+  -o OUTPUT, --output OUTPUT
+                        Output directory (default: current directory)
+  -n NAME, --name NAME  Output filename (without extension)
+  -q QUALITY, --quality QUALITY
+                        Video quality (1080, 720, 480, 360)
+```
+
+## Requirements
+
+- Python 3.6+
+- yt-dlp
+- FFmpeg (for audio conversion)
+
+## License
 
 MIT

@@ -7,13 +7,13 @@ from pathlib import Path
 import yt_dlp
 
 def main():
-    parser = argparse.ArgumentParser(description="Скачивание видео с YouTube по ссылке")
-    parser.add_argument("url", help="Ссылка на видео")
-    parser.add_argument("-a", "--audio", action="store_true", help="Скачать только аудио (mp3)")
-    parser.add_argument("-f", "--format", help="Формат (mp4, mp3, webm и т.д.)")
-    parser.add_argument("-o", "--output", help="Папка для сохранения", default=".")
-    parser.add_argument("-n", "--name", help="Имя выходного файла (без расширения)")
-    parser.add_argument("-q", "--quality", help="Качество видео (1080, 720, 480, 360)")
+    parser = argparse.ArgumentParser(description="Download videos from YouTube by URL")
+    parser.add_argument("url", help="Video URL")
+    parser.add_argument("-a", "--audio", action="store_true", help="Download audio only (mp3)")
+    parser.add_argument("-f", "--format", help="Format (mp4, mp3, webm, etc)")
+    parser.add_argument("-o", "--output", help="Output directory", default=".")
+    parser.add_argument("-n", "--name", help="Output filename (without extension)")
+    parser.add_argument("-q", "--quality", help="Video quality (1080, 720, 480, 360)")
     
     args = parser.parse_args()
     
@@ -76,11 +76,11 @@ def main():
     
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            print(f"Начинаю загрузку: {args.url}")
+            print(f"Starting download: {args.url}")
             ydl.download([args.url])
-            print(f"Загрузка завершена. Файлы сохранены в: {output_dir}")
+            print(f"Download complete. Files saved to: {output_dir}")
     except Exception as e:
-        print(f"Ошибка при загрузке: {e}", file=sys.stderr)
+        print(f"Download error: {e}", file=sys.stderr)
         return 1
     
     return 0
